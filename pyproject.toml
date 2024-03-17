@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "image_search"
+version = "0.1.0"
+description = "Image search project"
+authors = ["Gil Fernandes <gil.fernandes@onepointltd.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiohttp = "^3.9.3"
+clip-retrieval = "^2.44.0"
+torch = "^2.2.1"
+lancedb = "^0.6.1"
+openai = "^1.14.0"
+python-dotenv = "^1.0.1"
+fastapi = "^0.110.0"
+uvicorn = "^0.28.0"
+python-multipart = "^0.0.9"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
