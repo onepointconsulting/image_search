@@ -1,9 +1,10 @@
-import asyncio
 import uuid
 import shutil
 
 from typing import Iterator, Union
 from pathlib import Path
+
+from PIL import Image
 
 from image_search.config.config import cfg
 from image_search.config.log_factory import logger
@@ -25,7 +26,8 @@ async def create_image_embeddings(
 
 async def convert_single_image(im: Path) -> Union[ImageData, None]:
 
-    logger.info(f""" ===== {im.name} =====""")
+    logger.info(f""" ===== {im.as_posix()} =====""")
+    logger.info(f"Image exists: {im.exists()}")
 
     new_image_path = copy_image_to_images_folder(im)
     if not new_image_path.exists():
@@ -34,10 +36,10 @@ async def convert_single_image(im: Path) -> Union[ImageData, None]:
             message=f"Could not find new image path: {im}",
         )
 
-    description = await describe(im)
-    logger.info(f"{description}\n")
+    description = await describe(new_image_path)
+    logger.info(f"description: {description}\n")
 
-    if description is not None:
+    if description is not None and type(description) is not Error:
         image_embedding = get_image_emb(im)
         embedding = create_text_embeddings(description)
         return ImageData(
@@ -48,11 +50,33 @@ async def convert_single_image(im: Path) -> Union[ImageData, None]:
 
 
 def copy_image_to_images_folder(im: Path) -> Path:
+    logger.info("Original image name: %s", im)
     prefix = str(uuid.uuid4())
     image_name = f"{prefix}_{im.name}"
-    new_image = cfg.image_storage_folder / image_name
-    shutil.copyfile(im, new_image)
+    
+    image_name_limit = 100
+    if len(im.stem) > image_name_limit:
+        image_name = f"{im.stem[:image_name_limit]}{im.suffix}"
+    translation_table = str.maketrans(",+;", "   ")
+    replaced_string = image_name.translate(translation_table)
+
+    new_image = cfg.image_storage_folder / replaced_string
+
+    if new_image.suffix == ".webp":
+        new_image = new_image.parent/f"{new_image.stem}.png"
+        logger.info("New image name: %s", new_image)
+        convert_webp_to_png(im, new_image)
+    else:
+        logger.info("New image name: %s", new_image)
+        shutil.copyfile(im, new_image)
     return new_image
+
+
+def convert_webp_to_png(im: Path, new_image: Path):
+    with Image.open(im) as img:
+        # Convert the image to PNG and save it
+        img.save(new_image, 'PNG')
+
 
 
 if __name__ == "__main__":

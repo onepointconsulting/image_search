@@ -17,6 +17,8 @@ python-dotenv = "^1.0.1"
 fastapi = "^0.110.0"
 uvicorn = "^0.28.0"
 python-multipart = "^0.0.9"
+streamlit = "^1.32.2"
+streamlit-option-menu = "^0.3.12"
 
 
 [tool.poetry.group.dev.dependencies]

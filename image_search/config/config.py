@@ -30,6 +30,8 @@ class Config:
     server_host = os.getenv("SERVER_HOST", "0.0.0.0")
     server_port = int(os.getenv("SERVER_PORT", "8888"))
 
+    supported_file_formats = ["png", "jpg", "jpeg", "webp"]
+
 
 def get_image_folder() -> Path:
 

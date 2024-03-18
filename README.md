@@ -43,6 +43,8 @@ python -m unittest
 
 ## Bootstrap the DB
 
+Bootstrapping involves simply copying the content of this project's image folder to the vector database.
+
 ```
 python .\image_search\bootstrap\initial_images_bootstrap.py
 ```
@@ -50,7 +52,7 @@ python .\image_search\bootstrap\initial_images_bootstrap.py
 ## Running the REST server
 
 ```
-python .\image_search\rest\server.py
+python ./image_search/rest/server.py
 ```
 
 After starting the server you will be able to use the Swagger UI offered by FastAPI on: 
@@ -61,3 +63,11 @@ Using the Swagger UI you will be able to perform the basic operations for adding
 ## Configuration
 
 The configuration for the project can be found in the `.env_local` file.
+
+## Running the Streamlit Server
+
+Here is the command to run the Streamlit server:
+
+```
+streamlit run .\image_search\ui\streamlit\home.py
+```
