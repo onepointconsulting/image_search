@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 # Define the pages and their file paths
-pages = {"Home": f"home.py", "Upload": f"pages/upload.py"}
+pages = {"Home": f"home.py", "Upload": f"pages/upload.py", "Stats": f"pages/stats.py"}
 
 # Create a list of the page names
 page_list = list(pages.keys())

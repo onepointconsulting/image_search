@@ -38,13 +38,14 @@ if submit_button:
     else:
         tmp_path = None
         with NamedTemporaryFile(delete=False) as tmp:
-            tmp_path = create_temp_file(uploaded_file, tmp)
-            formatted_timestamp = generate_file_timestamp()
-            file_copy = tmp_path.parent / f"{formatted_timestamp}_{uploaded_file.name}"
-            print("file_copy", file_copy)
-            shutil.copyfile(tmp_path, file_copy)
-            print("file_copy exists", file_copy.exists())
-            output = asyncio.run(save_image_from_path(file_copy))
+            with st.spinner('Processing... Please wait.'):
+                tmp_path = create_temp_file(uploaded_file, tmp)
+                formatted_timestamp = generate_file_timestamp()
+                file_copy = tmp_path.parent / f"{formatted_timestamp}_{uploaded_file.name}"
+                print("file_copy", file_copy)
+                shutil.copyfile(tmp_path, file_copy)
+                print("file_copy exists", file_copy.exists())
+                output = asyncio.run(save_image_from_path(file_copy))
 
             if type(output) == Error:
                 st.error(f"Image upload failed due to {output.message}")

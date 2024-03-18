@@ -69,5 +69,5 @@ The configuration for the project can be found in the `.env_local` file.
 Here is the command to run the Streamlit server:
 
 ```
-streamlit run .\image_search\ui\streamlit\home.py
+streamlit run ./image_search/ui/streamlit\home.py
 ```
