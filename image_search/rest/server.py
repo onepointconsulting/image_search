@@ -51,7 +51,7 @@ class SearchRequest(BaseModel):
 
 @app.post("/search/text")
 async def search_text(request: SearchRequest):
-    res = text_search(request.search, request.limit)
+    res = await text_search(request.search, request.limit)
     return search_response_adapter(res)
 
 

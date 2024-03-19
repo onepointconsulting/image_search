@@ -18,15 +18,11 @@ st.header("Image Upload")
 # Display the menu
 nav("Upload")
 
-st.markdown(
-    """This page allows you to upload an image to the vector database."""
-)
+st.markdown("""This page allows you to upload an image to the vector database.""")
 
 with st.form(key="image_upload_form"):
     # File uploader widget
-    uploaded_file = st.file_uploader(
-        "Choose a file", type=cfg.supported_file_formats
-    )
+    uploaded_file = st.file_uploader("Choose a file", type=cfg.supported_file_formats)
 
     # Submit button for the form
     submit_button = st.form_submit_button(label="Upload")
@@ -34,14 +30,16 @@ with st.form(key="image_upload_form"):
 if submit_button:
     if uploaded_file is None:
         # Display a message prompting the user to fill out the upload file
-        st.error("Please upload an image")        
+        st.error("Please upload an image")
     else:
         tmp_path = None
         with NamedTemporaryFile(delete=False) as tmp:
-            with st.spinner('Processing... Please wait.'):
+            with st.spinner("Processing... Please wait."):
                 tmp_path = create_temp_file(uploaded_file, tmp)
                 formatted_timestamp = generate_file_timestamp()
-                file_copy = tmp_path.parent / f"{formatted_timestamp}_{uploaded_file.name}"
+                file_copy = (
+                    tmp_path.parent / f"{formatted_timestamp}_{uploaded_file.name}"
+                )
                 print("file_copy", file_copy)
                 shutil.copyfile(tmp_path, file_copy)
                 print("file_copy exists", file_copy.exists())
@@ -50,7 +48,8 @@ if submit_button:
             if type(output) == Error:
                 st.error(f"Image upload failed due to {output.message}")
             else:
-                st.info(f"Image {uploaded_file.name} successfully {'created' if output else 'updated'}")
+                st.info(
+                    f"Image {uploaded_file.name} successfully {'created' if output else 'updated'}"
+                )
 
         unlink_file(tmp_path)
-

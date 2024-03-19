@@ -21,7 +21,10 @@ class TestDBModel(unittest.TestCase):
     def test_image_copy_2(self):
         images_path = get_image_folder()
         images_2 = images_path.parent / "images_2"
-        image_to_copy = images_2/"DALL·E 2024-03-17 19.36.03 - An abstract representation of the concept of economy of time, featuring a large, vintage clock in the center, its hands moving rapidly. Surrounding th.webp"
+        image_to_copy = (
+            images_2
+            / "DALL·E 2024-03-17 19.36.03 - An abstract representation of the concept of economy of time, featuring a large, vintage clock in the center, its hands moving rapidly. Surrounding th.webp"
+        )
         assert image_to_copy.exists()
         copied = copy_image_to_images_folder(image_to_copy)
         assert copied.exists()

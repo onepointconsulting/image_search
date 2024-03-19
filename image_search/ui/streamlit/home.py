@@ -1,3 +1,4 @@
+import asyncio
 from pathlib import Path
 from typing import List, Dict
 from tempfile import NamedTemporaryFile
@@ -27,11 +28,13 @@ def search_response_adapter(res: List[Dict]):
                 use_column_width=True,
             )
             st.markdown(r[FIELD_IMAGE_DESCRIPTION])
-            if '_distance' in r:
+            if "_distance" in r:
                 st.markdown(f"Distance: {r['_distance']}")
 
 
-def streamlit_image_search(file: st.runtime.uploaded_file_manager.UploadedFile) -> List[Dict]:
+def streamlit_image_search(
+    file: st.runtime.uploaded_file_manager.UploadedFile,
+) -> List[Dict]:
     with NamedTemporaryFile(delete=False) as tmp:
         tmp_path = create_temp_file(uploaded_file, tmp)
         return image_search(tmp_path, LIMIT)
@@ -49,9 +52,7 @@ st.markdown(
 
 with st.form(key="file_search_form"):
     # File uploader widget
-    uploaded_file = st.file_uploader(
-        "Choose a file", type=cfg.supported_file_formats
-    )
+    uploaded_file = st.file_uploader("Choose a file", type=cfg.supported_file_formats)
     # Text input widget for search expression
     search_expression = st.text_area("Enter search expression", height=20)
 
@@ -67,15 +68,15 @@ if submit_button:
         if has_uploaded_file and search_expression and len(search_expression) > 1:
             # Mixed search
             res_image = streamlit_image_search(uploaded_file)
-            res_text = text_search(search_expression, LIMIT)
+            res_text = asyncio.run(text_search(search_expression, LIMIT))
             search_response_adapter(combine_results(res_image, res_text, LIMIT // 2))
-        elif has_uploaded_file:      
-            # File based search      
+        elif has_uploaded_file:
+            # File based search
             res = streamlit_image_search(uploaded_file)
             search_response_adapter(res)
         elif search_expression:
             # Text only search
-            res = text_search(search_expression, LIMIT)
+            res = asyncio.run(text_search(search_expression, LIMIT))
             search_response_adapter(res)
     else:
         # Display a message prompting the user to fill out at least one field

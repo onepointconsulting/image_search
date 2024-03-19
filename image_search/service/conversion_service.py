@@ -11,7 +11,7 @@ from image_search.config.log_factory import logger
 from image_search.image_embeddings.embedding_query import get_image_emb
 from image_search.model.image_data import ImageData
 from image_search.llava_client import describe
-from image_search.service.openai_embeddings import create_text_embeddings
+from image_search.service.text_embedding_service import create_text_embeddings
 from image_search.model.error import Error, ErrorCode
 
 
@@ -41,7 +41,7 @@ async def convert_single_image(im: Path) -> Union[ImageData, None]:
 
     if description is not None and type(description) is not Error:
         image_embedding = get_image_emb(im)
-        embedding = create_text_embeddings(description)
+        embedding = await create_text_embeddings(description)
         return ImageData(
             new_image_path.name, description, image_embedding, embedding, new_image_path
         )
@@ -53,7 +53,7 @@ def copy_image_to_images_folder(im: Path) -> Path:
     logger.info("Original image name: %s", im)
     prefix = str(uuid.uuid4())
     image_name = f"{prefix}_{im.name}"
-    
+
     image_name_limit = 100
     if len(im.stem) > image_name_limit:
         image_name = f"{im.stem[:image_name_limit]}{im.suffix}"
@@ -63,7 +63,7 @@ def copy_image_to_images_folder(im: Path) -> Path:
     new_image = cfg.image_storage_folder / replaced_string
 
     if new_image.suffix == ".webp":
-        new_image = new_image.parent/f"{new_image.stem}.png"
+        new_image = new_image.parent / f"{new_image.stem}.png"
         logger.info("New image name: %s", new_image)
         convert_webp_to_png(im, new_image)
     else:
@@ -75,8 +75,7 @@ def copy_image_to_images_folder(im: Path) -> Path:
 def convert_webp_to_png(im: Path, new_image: Path):
     with Image.open(im) as img:
         # Convert the image to PNG and save it
-        img.save(new_image, 'PNG')
-
+        img.save(new_image, "PNG")
 
 
 if __name__ == "__main__":

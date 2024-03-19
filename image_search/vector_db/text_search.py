@@ -4,19 +4,21 @@ from image_search.vector_db.imagedb_schema import (
     FIELD_TEXT_VECTOR,
     FIELD_IMAGE_DESCRIPTION,
 )
-from image_search.service.openai_embeddings import create_text_embeddings
+from image_search.service.conversion_service import create_text_embeddings
 from image_search.vector_db.lancedb_persistence import execute_knn_search, DISTANCE
 
 
-def text_search(
+async def text_search(
     image_description: str, limit: int = 10, distance: str = DISTANCE.EUCLIDEAN
 ) -> List[Dict]:
-    embedding = create_text_embeddings(image_description)
+    embedding = await create_text_embeddings(image_description)
     res = execute_knn_search(embedding, FIELD_TEXT_VECTOR, limit, distance)
     return res
 
 
 if __name__ == "__main__":
+
+    import asyncio
 
     def test_list_text_vectors():
         for i, img in enumerate(tbl.to_pandas()[FIELD_TEXT_VECTOR].to_numpy()):
@@ -24,7 +26,7 @@ if __name__ == "__main__":
 
     def search_tester(search: str):
         print("Searching for: ", search)
-        res = text_search(search, 3, DISTANCE.DOT)
+        res = asyncio.run(text_search(search, 3, DISTANCE.DOT))
         for dic in res:
             print(dic[FIELD_IMAGE_DESCRIPTION])
             print("\n******************************************\n")

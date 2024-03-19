@@ -22,6 +22,7 @@ from image_search.vector_db.imagedb_schema import (
 from image_search.service.conversion_service import (
     convert_single_image,
 )
+from image_search.utils.file_utils import unlink_file
 
 
 class DISTANCE(StrEnum):
@@ -103,7 +104,8 @@ def save_image(image_data: ImageData, ignore_update: bool = False) -> bool:
                 f"{FIELD_IMAGE_NAME} = '{first_result[FIELD_IMAGE_NAME]}'"
             )
             if image_data.image_path:
-                image_data.image_path.unlink()
+                # try to remove the old file.
+                unlink_file(cfg.image_storage_folder/first_result[FIELD_IMAGE_NAME])
             tbl.update(where=filter_expression, values=single_value)
         return False
 

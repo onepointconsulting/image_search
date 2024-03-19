@@ -1,8 +1,7 @@
 from typing import List, Dict
 
-from image_search.vector_db.imagedb_schema import (
-    FIELD_IMAGE_NAME
-)
+from image_search.vector_db.imagedb_schema import FIELD_IMAGE_NAME
+
 
 def combine_results(res_image: List[Dict], res_text: List[Dict], limit: int):
     def rank_results(res: List[Dict]):
@@ -24,6 +23,5 @@ def combine_results(res_image: List[Dict], res_text: List[Dict], limit: int):
             item["rank_points"] = item["rank_points"] + value["rank_points"]
             if "_distance" in item:
                 item["_distance"] = (item["_distance"] + value["_distance"]) / 2
-
 
     return sorted(combined_dict.values(), key=lambda x: x["rank_points"], reverse=True)
