@@ -104,8 +104,8 @@ def save_image(image_data: ImageData, ignore_update: bool = False) -> bool:
                 f"{FIELD_IMAGE_NAME} = '{first_result[FIELD_IMAGE_NAME]}'"
             )
             if image_data.image_path:
-                # try to remove the old file.
-                unlink_file(cfg.image_storage_folder/first_result[FIELD_IMAGE_NAME])
+                # The file was uploaded again. Keep the old file to avoid dups.
+                unlink_file(cfg.image_storage_folder/image_data.file_name)
             tbl.update(where=filter_expression, values=single_value)
         return False
 
