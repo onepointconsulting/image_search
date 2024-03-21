@@ -49,6 +49,15 @@ Bootstrapping involves simply copying the content of this project's image folder
 python .\image_search\bootstrap\initial_images_bootstrap.py
 ```
 
+## Synchronize image folder with database
+
+Here is a script that can synchronize the database with the image folder:
+
+```
+python .\image_search\bootstrap\cleanup_images.py
+```
+
+
 ## Running the REST server
 
 ```

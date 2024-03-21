@@ -1,6 +1,7 @@
-from image_search.vector_db.lancedb_persistence import tbl
+from image_search.vector_db.lancedb_info import basic_info
 
 
 if __name__ == "__main__":
-    count = tbl.count_rows()
-    print(f"Table {tbl} has {count} rows.")
+    count, names = basic_info()
+    print(f"Table has {count} rows.")
+    print("Columns", names)
