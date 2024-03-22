@@ -64,20 +64,20 @@ if submit_button:
     # Check if either the file is uploaded or the text area is filled
     has_uploaded_file = uploaded_file is not None
     if has_uploaded_file or search_expression:
-        st.success("Form submitted successfully!")
-        if has_uploaded_file and search_expression and len(search_expression) > 1:
-            # Mixed search
-            res_image = streamlit_image_search(uploaded_file)
-            res_text = asyncio.run(text_search(search_expression, LIMIT))
-            search_response_adapter(combine_results(res_image, res_text, LIMIT // 2))
-        elif has_uploaded_file:
-            # File based search
-            res = streamlit_image_search(uploaded_file)
-            search_response_adapter(res)
-        elif search_expression:
-            # Text only search
-            res = asyncio.run(text_search(search_expression, LIMIT))
-            search_response_adapter(res)
+        with st.spinner("Uploading file... Please wait."):
+            if has_uploaded_file and search_expression and len(search_expression) > 1:
+                # Mixed search
+                res_image = streamlit_image_search(uploaded_file)
+                res_text = asyncio.run(text_search(search_expression, LIMIT))
+                search_response_adapter(combine_results(res_image, res_text, LIMIT // 2))
+            elif has_uploaded_file:
+                # File based search
+                res = streamlit_image_search(uploaded_file)
+                search_response_adapter(res)
+            elif search_expression:
+                # Text only search
+                res = asyncio.run(text_search(search_expression, LIMIT))
+                search_response_adapter(res)
     else:
         # Display a message prompting the user to fill out at least one field
         st.error("Please upload an image or enter a search expression.")
