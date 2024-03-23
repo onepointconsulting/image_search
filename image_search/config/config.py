@@ -11,6 +11,7 @@ class Config:
     assert openai_api_key is not None
 
     openai_embeddings_model = os.getenv("OPENAI_EMBEDDINGS_MODEL")
+    openai_image_model = os.getenv("OPENAI_IMAGE_MODEL")
 
     ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/api")
     image_storage_folder_str = os.getenv("IMAGE_STORAGE_FOLDER", "./tmp/images")
@@ -28,7 +29,7 @@ class Config:
     text_vector_size = int(
         os.getenv("TEXT_VECTOR_SIZE", "1536")
         if openai_embeddings_model is not None
-        else "768" # nomic vector size
+        else "768"  # nomic vector size
     )
 
     server_host = os.getenv("SERVER_HOST", "0.0.0.0")

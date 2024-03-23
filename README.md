@@ -54,7 +54,7 @@ python .\image_search\bootstrap\initial_images_bootstrap.py
 Here is a script that can synchronize the database with the image folder:
 
 ```
-python .\image_search\bootstrap\cleanup_images.py
+python .\image_search\cli\cleanup_images.py
 ```
 
 

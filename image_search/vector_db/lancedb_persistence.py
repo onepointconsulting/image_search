@@ -105,7 +105,7 @@ def save_image(image_data: ImageData, ignore_update: bool = False) -> bool:
             )
             if image_data.image_path:
                 # The file was uploaded again. Keep the old file to avoid dups.
-                unlink_file(cfg.image_storage_folder/image_data.file_name)
+                unlink_file(cfg.image_storage_folder / image_data.file_name)
             tbl.update(where=filter_expression, values=single_value)
         return False
 

@@ -10,6 +10,7 @@ from image_search.vector_db.lancedb_persistence import save_image_from_path
 from image_search.utils.file_utils import unlink_file
 from image_search.model.error import Error
 from image_search.config.config import cfg
+from image_search.config.log_factory import logger
 
 
 st.set_page_config(layout="wide")
@@ -34,15 +35,16 @@ if submit_button:
     else:
         tmp_path = None
         with NamedTemporaryFile(delete=False) as tmp:
-            with st.spinner("Processing... Please wait."):
+            output = None
+            with st.spinner("Uploading file... Please wait."):
                 tmp_path = create_temp_file(uploaded_file, tmp)
                 formatted_timestamp = generate_file_timestamp()
                 file_copy = (
                     tmp_path.parent / f"{formatted_timestamp}_{uploaded_file.name}"
                 )
-                print("file_copy", file_copy)
+                logger.info("file_copy %s", file_copy)
                 shutil.copyfile(tmp_path, file_copy)
-                print("file_copy exists", file_copy.exists())
+                logger.info("file_copy exists %s", file_copy.exists())
                 output = asyncio.run(save_image_from_path(file_copy))
 
             if type(output) == Error:

@@ -1,7 +1,6 @@
 import streamlit as st
 
 from image_search.ui.streamlit.navbar import nav
-from image_search.vector_db.lancedb_persistence import tbl
 from image_search.vector_db.lancedb_info import basic_info, col_info
 
 st.set_page_config(layout="wide")
@@ -22,5 +21,3 @@ Here are the columns information:
 - {"- ".join([c[0] + f": {c[1]}\n" for c in column_info])}
 """
 )
-
-

@@ -69,7 +69,9 @@ if submit_button:
                 # Mixed search
                 res_image = streamlit_image_search(uploaded_file)
                 res_text = asyncio.run(text_search(search_expression, LIMIT))
-                search_response_adapter(combine_results(res_image, res_text, LIMIT // 2))
+                search_response_adapter(
+                    combine_results(res_image, res_text, LIMIT // 2)
+                )
             elif has_uploaded_file:
                 # File based search
                 res = streamlit_image_search(uploaded_file)

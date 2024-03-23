@@ -1,8 +1,24 @@
+from enum import StrEnum
+
 import streamlit as st
+
 from streamlit_option_menu import option_menu
 
+
+class Page(StrEnum):
+    HOME = "Home"
+    UPLOAD = "Upload"
+    STATS = "Stats"
+    GENERATE = "Generate"
+
+
 # Define the pages and their file paths
-pages = {"Home": f"home.py", "Upload": f"pages/upload.py", "Stats": f"pages/stats.py"}
+pages = {
+    Page.HOME: f"home.py",
+    Page.UPLOAD: f"pages/upload.py",
+    Page.STATS: f"pages/stats.py",
+    Page.GENERATE: f"pages/generate.py",
+}
 
 # Create a list of the page names
 page_list = list(pages.keys())

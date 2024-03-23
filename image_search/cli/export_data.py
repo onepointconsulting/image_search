@@ -6,4 +6,3 @@ from image_search.config.config import cfg
 if __name__ == "__main__":
     df = tbl.to_pandas()
     df.to_csv("images_data.csv")
-    
