@@ -47,7 +47,7 @@
       <bpmn:incoming>Flow_0xphd27</bpmn:incoming>
       <bpmn:outgoing>Flow_0djol7c</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sendTask id="Activity_19ko8ys" name="Send embedding to Vector DB">
+    <bpmn:sendTask id="Activity_19ko8ys" name="Search with embedding  in Vector DB">
       <bpmn:incoming>Flow_1l6jz6g</bpmn:incoming>
       <bpmn:outgoing>Flow_1a9tm2k</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_06ohxgv">
@@ -115,6 +115,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0da52qo_di" bpmnElement="Activity_19ko8ys">
         <dc:Bounds x="740" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0v8kkeo_di" bpmnElement="Activity_19nmjrq">
         <dc:Bounds x="900" y="77" width="100" height="80" />
@@ -123,6 +124,10 @@
         <di:waypoint x="215" y="117" />
         <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0djol7c_di" bpmnElement="Flow_0djol7c">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="420" y="117" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0tsfyh5_di" bpmnElement="DataOutputAssociation_0tsfyh5">
         <di:waypoint x="470" y="157" />
         <di:waypoint x="470" y="285" />
@@ -130,10 +135,6 @@
       <bpmndi:BPMNEdge id="Flow_099e27r_di" bpmnElement="Flow_099e27r">
         <di:waypoint x="520" y="117" />
         <di:waypoint x="580" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0djol7c_di" bpmnElement="Flow_0djol7c">
-        <di:waypoint x="370" y="117" />
-        <di:waypoint x="420" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0t2oeti_di" bpmnElement="DataInputAssociation_0t2oeti">
         <di:waypoint x="630" y="285" />
@@ -146,10 +147,6 @@
       <bpmndi:BPMNEdge id="DataOutputAssociation_06ohxgv_di" bpmnElement="DataOutputAssociation_06ohxgv">
         <di:waypoint x="790" y="157" />
         <di:waypoint x="790" y="285" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1a9tm2k_di" bpmnElement="Flow_1a9tm2k">
-        <di:waypoint x="840" y="117" />
-        <di:waypoint x="900" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0fgx0vt_di" bpmnElement="DataInputAssociation_0fgx0vt">
         <di:waypoint x="950" y="285" />
@@ -166,6 +163,10 @@
       <bpmndi:BPMNEdge id="Flow_19vrlw3_di" bpmnElement="Flow_19vrlw3">
         <di:waypoint x="1320" y="117" />
         <di:waypoint x="1382" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a9tm2k_di" bpmnElement="Flow_1a9tm2k">
+        <di:waypoint x="840" y="117" />
+        <di:waypoint x="900" y="117" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
