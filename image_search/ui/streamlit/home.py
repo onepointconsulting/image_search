@@ -41,7 +41,7 @@ def streamlit_image_search(
 
 
 st.set_page_config(layout="wide")
-st.header("Image Search")
+st.header("Vector Search")
 
 # Display the menu
 nav("Home")

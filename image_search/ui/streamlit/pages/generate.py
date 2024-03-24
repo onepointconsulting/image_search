@@ -14,14 +14,18 @@ st.header("Image Generation")
 # Display the menu
 nav("Generate")
 
-st.markdown("Here you can generate images using DALL-E and save them directly in the vector database.")
+st.markdown(
+    "Here you can generate images using DALL-E and save them directly in the vector database."
+)
 
 with st.form(key="generate_form"):
-    
+
     # Text input widget for search expression
     prompt = st.text_area("Enter image prompt", height=20)
 
-    dropdown_selection = st.selectbox('Choose the image format:', [Sizes.SQUARE, Sizes.PORTRAIT, Sizes.LANDSCAPE])
+    dropdown_selection = st.selectbox(
+        "Choose the image format:", [Sizes.SQUARE, Sizes.PORTRAIT, Sizes.LANDSCAPE]
+    )
 
     # Submit button for the form
     submit_button = st.form_submit_button(label="Generate")
@@ -48,6 +52,3 @@ if submit_button:
                     st.info(f"Failed to import {image.name} to vector database.")
                 finally:
                     unlink_file(image)
-
-        
-        

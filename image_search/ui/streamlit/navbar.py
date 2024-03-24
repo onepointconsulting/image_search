@@ -8,16 +8,18 @@ from streamlit_option_menu import option_menu
 class Page(StrEnum):
     HOME = "Home"
     UPLOAD = "Upload"
-    STATS = "Stats"
     GENERATE = "Generate"
+    STATS = "Stats"
+    DATA = "Data"
 
 
 # Define the pages and their file paths
 pages = {
     Page.HOME: f"home.py",
     Page.UPLOAD: f"pages/upload.py",
-    Page.STATS: f"pages/stats.py",
     Page.GENERATE: f"pages/generate.py",
+    Page.DATA: f"pages/data.py",
+    Page.STATS: f"pages/stats.py",
 }
 
 # Create a list of the page names
