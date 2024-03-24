@@ -8,7 +8,7 @@ from PIL import Image
 
 from image_search.config.config import cfg
 from image_search.config.log_factory import logger
-from image_search.image_embeddings.embedding_query import get_image_emb
+from image_search.service.image_embeddings.embedding_query import get_image_emb
 from image_search.model.image_data import ImageData
 from image_search.llava_client import describe
 from image_search.service.text_embedding_service import create_text_embeddings

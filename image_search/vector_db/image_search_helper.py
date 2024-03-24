@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 from pathlib import Path
-from image_search.image_embeddings.embedding_query import get_image_emb
+from image_search.service.image_embeddings.embedding_query import get_image_emb
 from image_search.vector_db.lancedb_persistence import DISTANCE, execute_knn_search
 from image_search.vector_db.imagedb_schema import (
     FIELD_IMAGE_VECTOR,
