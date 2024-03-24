@@ -30,9 +30,19 @@ async def embeddings(image_path: Path, description: str) -> Union[List[float], E
 async def handle_post_call(
     data: dict, url: str, key: str
 ) -> Union[Union[List[float], str], Error]:
+    """
+    Generates a description for an image at the given path using a specified prompt.
+
+    Args:
+        image_path (Path): The filesystem path to the image to describe.
+        prompt (str): The prompt to guide the description generation.
+
+    Returns:
+        Union[str, Error]: The generated description or an Error object if the request failed.
+    """
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            url, json=data, headers={"Content-Type": "application/json"}
+            url, json=data
         ) as resp:
             if resp.status >= 200 and resp.status < 300:
                 json_res = await resp.json()
