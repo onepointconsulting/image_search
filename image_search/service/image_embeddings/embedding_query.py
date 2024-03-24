@@ -25,6 +25,20 @@ def convert_to_list(array: np.ndarray) -> List[float]:
 
 
 def get_image_emb(path: Path) -> List[float]:
+    """
+    Generates an embedding for an image at a specified path.
+
+    This function processes an image through the pre-loaded CLIP model to
+    generate a normalized embedding vector. The embedding is then converted
+    to a list of floats. Logging is used to track the shape of the embedding
+    before and after normalization.
+
+    Parameters:
+    - path (Path): The file path to the image for which the embedding is generated.
+
+    Returns:
+    - List[float]: A normalized embedding of the image as a list of floats.
+    """
     with torch.no_grad():
         image = pimage.open(img_to_stream(path))
         image_emb = model.encode_image(preprocess(image).unsqueeze(0).to("cpu"))

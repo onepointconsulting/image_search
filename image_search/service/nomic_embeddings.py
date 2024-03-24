@@ -7,9 +7,18 @@ from image_search.config.log_factory import logger
 
 
 async def nomic_create_text_embeddings(prompt: str) -> Union[List[float], None]:
+    """
+    Asynchronously creates text embeddings using a specified model.
+
+    Args:
+    prompt (str): The text prompt to create embeddings for.
+
+    Returns:
+    Union[List[float], None]: A list of float embeddings if successful, None otherwise.
+    """
     url = f"{cfg.ollama_base_url}/embeddings"
     data = {"model": cfg.nomic_embed_model, "prompt": prompt}
-    print(data)
+    logger.debug("embeddings input: %s", data)
 
     # Use aiohttp.ClientSession for making HTTP requests
     async with aiohttp.ClientSession() as session:
