@@ -26,7 +26,7 @@ def col_info() -> List[Tuple[str, any]]:
 def get_data() -> pd.DataFrame:
     return (
         tbl.search()
-        .limit(-1) # Fetches all records.
+        .limit(-1)  # Fetches all records.
         .select(
             [
                 FIELD_IMAGE_NAME,

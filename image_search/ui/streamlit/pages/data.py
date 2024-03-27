@@ -12,7 +12,6 @@ nav(Page.DATA)
 
 image_metadata = get_data()
 
-st.markdown(
-    f"""Here you can see data contained in this database.""")
+st.markdown(f"""Here you can see data contained in this database.""")
 
 st.dataframe(image_metadata)

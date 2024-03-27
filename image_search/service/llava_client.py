@@ -41,9 +41,7 @@ async def handle_post_call(
         Union[str, Error]: The generated description or an Error object if the request failed.
     """
     async with aiohttp.ClientSession() as session:
-        async with session.post(
-            url, json=data
-        ) as resp:
+        async with session.post(url, json=data) as resp:
             if resp.status >= 200 and resp.status < 300:
                 json_res = await resp.json()
                 if key in json_res:

@@ -19,6 +19,7 @@ uvicorn = "^0.28.0"
 python-multipart = "^0.0.9"
 streamlit = "^1.32.2"
 streamlit-option-menu = "^0.3.12"
+mymidjourney-client = {path = "libs/mymidjourney_client-0.1.2-py3-none-any.whl"}
 
 
 [tool.poetry.group.dev.dependencies]

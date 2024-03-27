@@ -4,6 +4,13 @@ import aiohttp
 
 from image_search.config.config import cfg
 from image_search.config.log_factory import logger
+from urllib.parse import urlparse
+
+
+async def download_image_from_url(url: str) -> Union[Path, None]:
+    parsed = urlparse(url)
+    image_name = parsed.path.split("/")[-1]
+    return await download_image(url, image_name)
 
 
 async def download_image(url: str, image_name: str) -> Union[Path, None]:

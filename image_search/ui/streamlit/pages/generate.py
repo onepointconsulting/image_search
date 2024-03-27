@@ -2,11 +2,11 @@ import asyncio
 
 import streamlit as st
 
-from image_search.config.log_factory import logger
 from image_search.ui.streamlit.navbar import nav
 from image_search.service.openai_image_generation import Sizes, generate_image
-from image_search.vector_db.lancedb_persistence import save_image_from_path
-from image_search.utils.file_utils import unlink_file
+from image_search.ui.streamlit.pages.common import save_image
+from image_search.ui.streamlit.pages.common import missing_prompt_error, display_image
+
 
 st.set_page_config(layout="wide")
 st.header("Image Generation")
@@ -32,23 +32,11 @@ with st.form(key="generate_form"):
 
 if submit_button:
     if prompt is None or len(prompt) < 5:
-        st.error("The image prompt should have at least 5 characters")
+        missing_prompt_error()
     else:
         selected_format = dropdown_selection
         with st.spinner("Generating and uploading file... Please wait."):
             downloaded_images = asyncio.run(generate_image(prompt, 1, selected_format))
             for image in downloaded_images:
-                st.info(f"Generated {image.name}")
-                st.image(
-                    image.as_posix(),
-                    caption=prompt,
-                    use_column_width=True,
-                )
-                try:
-                    asyncio.run(save_image_from_path(image))
-                    st.info(f"Created {image.name}")
-                except:
-                    logger.exception("Failed to create image")
-                    st.info(f"Failed to import {image.name} to vector database.")
-                finally:
-                    unlink_file(image)
+                display_image(image, prompt)
+                save_image(image)

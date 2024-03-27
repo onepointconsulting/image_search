@@ -18,13 +18,17 @@ def combine_results(res_image: List[Dict], res_text: List[Dict], limit: int):
     for image_name, value in ranked_images.items():
         if image_name not in ranked_text:
             print(f"Image result not ranked: {image_name}")
-            value["rank_points"] = value["rank_points"] / 2 # Only available as text result. Divide by two to penalize
+            value["rank_points"] = (
+                value["rank_points"] / 2
+            )  # Only available as text result. Divide by two to penalize
 
     for image_name, value in ranked_text.items():
         if image_name not in combined_dict:
             print(f"Text result not ranked: {image_name}")
             combined_dict[image_name] = value
-            value["rank_points"] = value["rank_points"] / 2 # Only available as text result. Divide by two to penalize
+            value["rank_points"] = (
+                value["rank_points"] / 2
+            )  # Only available as text result. Divide by two to penalize
         else:
             item = combined_dict[image_name]
             item["rank_points"] = item["rank_points"] + value["rank_points"]

@@ -9,6 +9,7 @@ class Page(StrEnum):
     HOME = "Home"
     UPLOAD = "Upload"
     GENERATE = "Generate"
+    GENERATE_MIDJOURNEY = "Generate Midjourney"
     STATS = "Stats"
     DATA = "Data"
 
@@ -18,6 +19,7 @@ pages = {
     Page.HOME: f"home.py",
     Page.UPLOAD: f"pages/upload.py",
     Page.GENERATE: f"pages/generate.py",
+    Page.GENERATE_MIDJOURNEY: f"pages/generate_midjourney.py",
     Page.DATA: f"pages/data.py",
     Page.STATS: f"pages/stats.py",
 }

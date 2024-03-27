@@ -1493,6 +1493,25 @@ files = [
 transformers = "*"
 
 [[package]]
+name = "mymidjourney-client"
+version = "0.1.2"
+description = "This is a simple Python based client for the APIs exposed by https://www.mymidjourney.ai"
+optional = false
+python-versions = ">=3.12,<4.0"
+files = [
+    {file = "mymidjourney_client-0.1.2-py3-none-any.whl", hash = "sha256:730b787dad2d1717cebad76c6f46d3bbc34e90751aaf7be537ad570e10080d53"},
+]
+
+[package.dependencies]
+aiohttp = ">=3.9.3,<4.0.0"
+python-dotenv = ">=1.0.1,<2.0.0"
+requests = ">=2.31.0,<3.0.0"
+
+[package.source]
+type = "file"
+url = "libs/mymidjourney_client-0.1.2-py3-none-any.whl"
+
+[[package]]
 name = "mypy-extensions"
 version = "1.0.0"
 description = "Type system extensions for programs checked with the mypy type checker."
@@ -4007,4 +4026,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "36b1803f02b616388b7b48dec8f8c512c55191b9e6380fe6f3c6469336a3e318"
+content-hash = "0242567f1075eb52d8fad632b5f2497ae15d080cf4dcf5ae88b5f1b8e46b55f9"
