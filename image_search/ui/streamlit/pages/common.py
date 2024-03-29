@@ -27,7 +27,7 @@ def save_image(image: Path) -> bool:
         st.info(f"Created {image.name}")
         return True
     except:
-        logger.exception("Failed to create image")
+        logger.exception(f"Failed to create image {image.name}")
         st.info(f"Failed to import {image.name} to vector database.")
         return False
     finally:
