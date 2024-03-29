@@ -70,7 +70,6 @@ def render_buttons(message_id: str, buttons: List[str]):
                     )
                 else:
                     download_and_save(button_message_result.uri, last_pressed)
-            st.session_state.imagine_result = None
             st.session_state.last_pressed = None
     elif st.session_state.last_pressed == STOP_BUTTON:
         logger.info("Stop button pressed")
