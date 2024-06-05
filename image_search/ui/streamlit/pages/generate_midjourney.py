@@ -31,6 +31,8 @@ if "last_pressed" not in st.session_state:
 if "imagine_result" not in st.session_state:
     st.session_state.imagine_result = None
 
+if "message_id" not in st.session_state:
+    st.session_state.message_id = None
 
 # Function to set the last pressed button
 def set_last_pressed(button_name):
@@ -43,7 +45,7 @@ def download_and_save(uri: str, prompt: str) -> bool:
     return save_image(image_path)
 
 
-def render_buttons(message_id: str, buttons: List[str]):
+def render_buttons(buttons: List[str]):
     if not STOP_BUTTON in buttons:
         buttons.append(STOP_BUTTON)
     cols = st.columns(len(buttons))
@@ -57,6 +59,7 @@ def render_buttons(message_id: str, buttons: List[str]):
         st.info(f"You pressed: {last_pressed}")
         logger.info(f"You pressed: {last_pressed}")
         with st.spinner("Generating and uploading file after button click ... Please wait."):
+            message_id = st.session_state.message_id
             button_result = asyncio.run(button_request(message_id, last_pressed))
             if isinstance(button_result, Error):
                 st.error(f"Button press returned result: {button_result.error_message}")
@@ -70,6 +73,10 @@ def render_buttons(message_id: str, buttons: List[str]):
                     )
                 else:
                     download_and_save(button_message_result.uri, last_pressed)
+                    if last_pressed.find('U') == -1:
+                        # Change the message id to generate from versions.
+                        st.session_state.message_id = button_message_result.message_id
+                        
             st.session_state.last_pressed = None
     elif st.session_state.last_pressed == STOP_BUTTON:
         logger.info("Stop button pressed")
@@ -119,4 +126,6 @@ if not st.session_state.imagine_result:
 
 if st.session_state.imagine_result:
     message_result = st.session_state.imagine_result
-    render_buttons(message_result.message_id, message_result.buttons)
+    st.info(f"Please select buttons to select sub images or create new versions. If you want to stop, please press the 'Stop' button.")
+    st.session_state.message_id = message_result.message_id
+    render_buttons(message_result.buttons)
