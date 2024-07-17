@@ -33,6 +33,20 @@ poetry install
 
 Make sure you install Ollama and get an OpenAI key. You will also require a .env file. See the .env_local file with the variables you need.
 
+### Running Ollama
+
+In order to run the search engine you will need to run a command like this one:
+
+```bash
+ollama serve
+```
+
+Make sure that you have these models installed:
+
+- llava:latest
+- nomic-embed-text:latest
+
+
 ## Running Unit Tests
 
 Here it is how you should run unit tests:
